@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA | High-End Local Brand</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="loading">
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="loader-content">
+            <h1 class="loader-brand">AURA</h1>
+            <div class="loader-progress"></div>
+        </div>
+    </div>
+
+    <!-- Background Effects -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <!-- Interactive Particle Canvas -->
+    <canvas id="hero-particles"></canvas>
+    <div class="noise-overlay"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="brand-logo pointer-target">AURA</a>
+            <div class="nav-links">
+                <a href="#home" class="nav-link active pointer-target">Home</a>
+                <a href="#shop" class="nav-link pointer-target">Shop</a>
+                <a href="#categories" class="nav-link pointer-target">Categories</a>
+                <a href="#about" class="nav-link pointer-target">Story</a>
+                <a href="#contact" class="nav-link pointer-target">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <button class="icon-btn search-btn pointer-target" aria-label="Search">
+                    <i data-lucide="search"></i>
+                </button>
+                <button class="icon-btn cart-btn pointer-target" aria-label="Cart" id="cartToggle">
+                    <i data-lucide="shopping-bag"></i>
+                    <span class="cart-badge" id="cart-count">2</span>
+                </button>
+                <button class="icon-btn menu-btn pointer-target" aria-label="Menu" id="mobileMenuBtn">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <a href="#home" class="mobile-link pointer-target">Home</a>
+            <a href="#shop" class="mobile-link pointer-target">Shop</a>
+            <a href="#categories" class="mobile-link pointer-target">Categories</a>
+            <a href="#about" class="mobile-link pointer-target">Story</a>
+            <a href="#contact" class="mobile-link pointer-target">Contact</a>
+        </div>
+    </div>
+
+    <!-- Full Screen Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <button class="close-btn pointer-target" id="closeSearch"><i data-lucide="x"></i></button>
+        <div class="search-container">
+            <input type="text" placeholder="Search for luxury..." class="search-input">
+            <button class="search-submit pointer-target"><i data-lucide="arrow-right"></i></button>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-btn pointer-target" id="closeCart"><i data-lucide="x"></i></button>
+        </div>
+        <div class="cart-items" id="cartItemsContainer">
+            <!-- Dynamic Cart Items will be injected here if empty, but we simulate default -->
+            <div class="cart-item" data-id="1" data-price="450">
+                <div class="cart-item-img">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Obsidian Chrono">
+                </div>
+                <div class="cart-item-details">
+                    <h3>Obsidian Chrono</h3>
+                    <p class="cart-item-price">$450.00</p>
+                    <div class="quantity-controls">
+                        <button class="qty-btn minus pointer-target"><i data-lucide="minus"></i></button>
+                        <span class="qty-val">1</span>
+                        <button class="qty-btn plus pointer-target"><i data-lucide="plus"></i></button>
+                    </div>
+                </div>
+                <button class="remove-item pointer-target"><i data-lucide="trash-2"></i></button>
+            </div>
+            <div class="cart-item" data-id="2" data-price="320">
+                <div class="cart-item-img">
+                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Midnight Series 3">
+                </div>
+                <div class="cart-item-details">
+                    <h3>Midnight Series 3</h3>
+                    <p class="cart-item-price">$320.00</p>
+                    <div class="quantity-controls">
+                        <button class="qty-btn minus pointer-target"><i data-lucide="minus"></i></button>
+                        <span class="qty-val">1</span>
+                        <button class="qty-btn plus pointer-target"><i data-lucide="plus"></i></button>
+                    </div>
+                </div>
+                <button class="remove-item pointer-target"><i data-lucide="trash-2"></i></button>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Subtotal</span>
+                <span id="cartSubtotal">$770.00</span>
+            </div>
+            <button class="checkout-btn pointer-target">
+                <span>Proceed to Checkout</span>
+                <i data-lucide="lock"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-badge reveal-text">New Collection 2026</div>
+            <h1 class="hero-title reveal-text">Elevate Your <br><span class="text-gradient hover-glow">Aura</span></h1>
+            <p class="hero-subtitle reveal-text delay-1">Discover the intersection of minimalist design and uncompromising luxury. Crafted for those who define the moment.</p>
+            <div class="hero-cta-group reveal-text delay-2">
+                <a href="#shop" class="btn btn-primary pointer-target">
+                    <span>Explore Collection</span>
+                    <i data-lucide="arrow-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual parallax-layer" data-speed="0.05">
+            <div class="hero-image-wrapper reveal-image delay-2">
+                <div class="image-glow"></div>
+                <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="AURA Luxury Product" class="hero-image floating pointer-target">
+                <div class="glass-card stat-card id-1 parallax-layer pointer-target" data-speed="0.1">
+                    <span class="stat-value">Handcrafted</span>
+                    <span class="stat-label">Excellence</span>
+                </div>
+                <div class="glass-card stat-card id-2 parallax-layer pointer-target" data-speed="-0.05">
+                    <span class="stat-value">Limited</span>
+                    <span class="stat-label">Editions</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Featured Products Section -->
+    <section class="products-section" id="shop">
+        <div class="section-header fade-in">
+            <h2 class="section-title">Exclusive <span class="text-gradient">Pieces</span></h2>
+            <p class="section-desc">Handcrafted perfection, meant to be experienced.</p>
+        </div>
+        
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card tilt-card fade-in delay-1 pointer-target" data-id="1" data-name="Obsidian Chrono" data-price="450" data-img="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80">
+                <div class="product-glow"></div>
+                <div class="product-card-inner">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Obsidian Chrono" class="product-image">
+                        <div class="product-badges">
+                            <span class="badge new-badge">New</span>
+                        </div>
+                        <div class="product-quick-actions">
+                            <button class="action-btn add-to-cart-btn" title="Add to Cart"><i data-lucide="shopping-cart"></i></button>
+                            <button class="action-btn" title="Wishlist"><i data-lucide="heart"></i></button>
+                            <button class="action-btn" title="View Details"><i data-lucide="eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Timepieces</div>
+                        <h3 class="product-name">Obsidian Chrono</h3>
+                        <div class="product-price-row">
+                            <span class="product-price">$450.00</span>
+                            <div class="product-rating">
+                                <i data-lucide="star" class="star-filled"></i>
+                                <span>4.9</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card tilt-card fade-in delay-2 pointer-target" data-id="2" data-name="Midnight Series 3" data-price="320" data-img="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80">
+                <div class="product-glow"></div>
+                <div class="product-card-inner">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Midnight Series 3" class="product-image">
+                        <div class="product-quick-actions">
+                            <button class="action-btn add-to-cart-btn" title="Add to Cart"><i data-lucide="shopping-cart"></i></button>
+                            <button class="action-btn" title="Wishlist"><i data-lucide="heart"></i></button>
+                            <button class="action-btn" title="View Details"><i data-lucide="eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Smart Wear</div>
+                        <h3 class="product-name">Midnight Series 3</h3>
+                        <div class="product-price-row">
+                            <span class="product-price">$320.00</span>
+                            <div class="product-rating">
+                                <i data-lucide="star" class="star-filled"></i>
+                                <span>4.7</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card tilt-card fade-in delay-3 pointer-target" data-id="3" data-name="Rose Gold Elegance" data-price="580" data-img="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80">
+                <div class="product-glow"></div>
+                <div class="product-card-inner">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Rose Gold Elegance" class="product-image">
+                        <div class="product-badges">
+                            <span class="badge limited-badge">Limited</span>
+                        </div>
+                        <div class="product-quick-actions">
+                            <button class="action-btn add-to-cart-btn" title="Add to Cart"><i data-lucide="shopping-cart"></i></button>
+                            <button class="action-btn" title="Wishlist"><i data-lucide="heart"></i></button>
+                            <button class="action-btn" title="View Details"><i data-lucide="eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Timepieces</div>
+                        <h3 class="product-name">Rose Gold Elegance</h3>
+                        <div class="product-price-row">
+                            <span class="product-price">$580.00</span>
+                            <div class="product-rating">
+                                <i data-lucide="star" class="star-filled"></i>
+                                <span>5.0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Product 4 -->
+            <div class="product-card tilt-card fade-in delay-4 pointer-target" data-id="4" data-name="Titanium Band" data-price="120" data-img="https://images.unsplash.com/photo-1622434641406-a158123450f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80">
+                <div class="product-glow"></div>
+                <div class="product-card-inner">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1622434641406-a158123450f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Titanium Band" class="product-image">
+                        <div class="product-quick-actions">
+                            <button class="action-btn add-to-cart-btn" title="Add to Cart"><i data-lucide="shopping-cart"></i></button>
+                            <button class="action-btn" title="Wishlist"><i data-lucide="heart"></i></button>
+                            <button class="action-btn" title="View Details"><i data-lucide="eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Accessories</div>
+                        <h3 class="product-name">Titanium Band</h3>
+                        <div class="product-price-row">
+                            <span class="product-price">$120.00</span>
+                            <div class="product-rating">
+                                <i data-lucide="star" class="star-filled"></i>
+                                <span>4.6</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+    <!-- Categories Section (Bento Grid) -->
+    <section class="categories-section" id="categories">
+        <div class="section-header fade-in">
+            <h2 class="section-title">Shop by <span class="text-gradient">Category</span></h2>
+        </div>
+        <div class="bento-grid fade-in">
+            <div class="bento-item bento-large group pointer-target">
+                <img src="https://images.unsplash.com/photo-1490367532201-b9bc1dc483f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mens Collection">
+                <div class="bento-overlay"></div>
+                <div class="bento-content">
+                    <h3>Gentlemen's Collection</h3>
+                    <a href="#" class="bento-link">Explore <i data-lucide="arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="bento-item group pointer-target">
+                <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Womens Collection">
+                <div class="bento-overlay"></div>
+                <div class="bento-content">
+                    <h3>Women's Edit</h3>
+                    <a href="#" class="bento-link">Explore <i data-lucide="arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="bento-item group pointer-target">
+                <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Accessories">
+                <div class="bento-overlay"></div>
+                <div class="bento-content">
+                    <h3>Accessories</h3>
+                    <a href="#" class="bento-link">Explore <i data-lucide="arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Storytelling About Section -->
+    <section class="story-section fade-in" id="about">
+        <div class="story-container">
+            <div class="story-image-wrap tilt-card pointer-target">
+                <div class="product-card-inner">
+                    <img src="https://images.unsplash.com/photo-1614165936126-2ed18e471b3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Brand Story" class="story-img product-image">
+                </div>
+                <div class="story-glow product-glow"></div>
+            </div>
+            <div class="story-content">
+                <h2 class="section-title">The <span class="text-gradient">AURA</span> Philosophy</h2>
+                <p class="story-text">Founded in the heart of urban minimalists, AURA bridges the gap between raw functionality and uncompromising aesthetics. Every piece we forge is meticulously designed to push the boundaries of what local craftsmanship can achieve on a global scale.</p>
+                <div class="mt-4"></div>
+                <p class="story-text">We don't just sell accessories; we curate a lifestyle of quiet confidence and unshakeable presence. Quality over quantity, intention over impulse.</p>
+                
+                <div class="author-signature">
+                    <h3>— The Founders</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Newsletter Form -->
+    <section class="contact-section fade-in" id="contact">
+        <div class="contact-card glass-panel">
+            <div class="contact-info">
+                <h2 class="section-title">Get in <span class="text-gradient">Touch</span></h2>
+                <p class="section-desc text-left">Have a question about our collections or need support with an order? We are here to help.</p>
+                <div class="contact-details">
+                    <div class="detail-item pointer-target">
+                        <div class="detail-icon"><i data-lucide="map-pin"></i></div>
+                        <span>123 Aura Boulevard, Creative District 7720</span>
+                    </div>
+                    <div class="detail-item pointer-target">
+                        <div class="detail-icon"><i data-lucide="mail"></i></div>
+                        <span>hello@aurabrand.com</span>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form id="mainContactForm">
+                    <div class="input-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" class="glass-input" placeholder="John Doe" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="glass-input" placeholder="john@example.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" class="glass-input textarea" rows="4" placeholder="How can we help you?" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 pointer-target">
+                        <span>Send Message</span>
+                        <i data-lucide="send"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="#home" class="brand-logo pointer-target">AURA</a>
+                    <p class="footer-desc">Redefining luxury aesthetics through minimalist expression and unmatched craftsmanship. Create your legacy.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link pointer-target"><i data-lucide="instagram"></i></a>
+                        <a href="#" class="social-link pointer-target"><i data-lucide="twitter"></i></a>
+                        <a href="#" class="social-link pointer-target"><i data-lucide="facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 AURA. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#" class="pointer-target">Privacy Policy</a>
+                    <a href="#" class="pointer-target">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
